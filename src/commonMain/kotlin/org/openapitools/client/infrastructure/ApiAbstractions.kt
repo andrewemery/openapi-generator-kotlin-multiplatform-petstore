@@ -1,4 +1,4 @@
-package io.swagger.client.infrastructure
+package org.openapitools.client.infrastructure
 
 typealias MultiValueMap = Map<String,List<String>>
 
@@ -21,5 +21,3 @@ fun <T : Any?> toMultiValue(items: Iterable<T>, collectionFormat: String, map: (
         else -> listOf(items.joinToString(separator = collectionDelimiter(collectionFormat), transform = map))
     }
 }
-
-fun toStringOrEmpty(value: Any?): String = value?.let { value.toString() } ?: ""

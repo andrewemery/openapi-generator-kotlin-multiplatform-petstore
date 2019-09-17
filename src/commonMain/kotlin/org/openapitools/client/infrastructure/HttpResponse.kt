@@ -1,4 +1,4 @@
-package io.swagger.client.infrastructure
+package org.openapitools.client.infrastructure
 
 import io.ktor.client.call.TypeInfo
 import io.ktor.client.call.typeInfo

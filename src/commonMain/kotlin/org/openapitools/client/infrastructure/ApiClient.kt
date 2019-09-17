@@ -1,4 +1,4 @@
-package io.swagger.client.infrastructure
+package org.openapitools.client.infrastructure
 
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
@@ -21,8 +21,8 @@ import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 
-import io.swagger.client.apis.*
-import io.swagger.client.models.*
+import org.openapitools.client.apis.*
+import org.openapitools.client.models.*
 
 open class ApiClient(
         private val baseUrl: String,
@@ -60,7 +60,6 @@ open class ApiClient(
             serializer.setMapper(Amount::class, Amount.serializer())
             serializer.setMapper(ApiResponse::class, ApiResponse.serializer())
             serializer.setMapper(Category::class, Category.serializer())
-            
             serializer.setMapper(Order::class, Order.serializer())
             serializer.setMapper(Pet::class, Pet.serializer())
             serializer.setMapper(Tag::class, Tag.serializer())

@@ -1,4 +1,4 @@
-package com.io.swagger.client
+package org.openapitools.client
 
 import util.runTest
 import io.ktor.client.engine.HttpClientEngine
@@ -10,14 +10,14 @@ import io.ktor.client.request.forms.InputProvider
 import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.content.TextContent
 import io.ktor.http.*
-import io.swagger.client.apis.PetApi
-import io.swagger.client.apis.StoreApi
-import io.swagger.client.apis.UserApi
-import io.swagger.client.infrastructure.HttpResponse
-import io.swagger.client.models.ApiResponse
-import io.swagger.client.models.Order
-import io.swagger.client.models.Pet
-import io.swagger.client.models.User
+import org.openapitools.client.apis.PetApi
+import org.openapitools.client.apis.StoreApi
+import org.openapitools.client.apis.UserApi
+import org.openapitools.client.infrastructure.HttpResponse
+import org.openapitools.client.models.ApiResponse
+import org.openapitools.client.models.Order
+import org.openapitools.client.models.Pet
+import org.openapitools.client.models.User
 import kotlinx.io.charsets.Charsets
 import kotlinx.io.core.buildPacket
 import kotlinx.serialization.json.Json

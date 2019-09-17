@@ -1,4 +1,4 @@
-package io.swagger.client.infrastructure
+package org.openapitools.client.infrastructure
 
 /**
  * Defines a config object for a given request.
@@ -9,7 +9,8 @@ package io.swagger.client.infrastructure
  *       multi-valued headers as csv-only.
  */
 data class RequestConfig(
-        val method: RequestMethod,
-        val path: String,
-        val headers: Map<String, String> = mapOf(),
-        val query: Map<String, List<String>> = mapOf())
+    val method: RequestMethod,
+    val path: String,
+    val headers: MutableMap<String, String> = mutableMapOf(),
+    val query: Map<String, List<String>> = mapOf()
+)

@@ -25,8 +25,8 @@ This can only be done by the logged in user.
 ### Example
 ```kotlin
 // Import classes:
-//import io.swagger.client.infrastructure.*
-//import io.swagger.client.models.*
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
 
 val apiInstance = UserApi()
 val body : User =  // User | Created user object
@@ -58,7 +58,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/xml, application/json
+ - **Accept**: Not defined
 
 <a name="createUsersWithArrayInput"></a>
 # **createUsersWithArrayInput**
@@ -66,13 +66,11 @@ No authorization required
 
 Creates list of users with given input array
 
-
-
 ### Example
 ```kotlin
 // Import classes:
-//import io.swagger.client.infrastructure.*
-//import io.swagger.client.models.*
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
 
 val apiInstance = UserApi()
 val body : kotlin.Array<User> =  // kotlin.Array<User> | List of user object
@@ -104,7 +102,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/xml, application/json
+ - **Accept**: Not defined
 
 <a name="createUsersWithListInput"></a>
 # **createUsersWithListInput**
@@ -112,13 +110,11 @@ No authorization required
 
 Creates list of users with given input array
 
-
-
 ### Example
 ```kotlin
 // Import classes:
-//import io.swagger.client.infrastructure.*
-//import io.swagger.client.models.*
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
 
 val apiInstance = UserApi()
 val body : kotlin.Array<User> =  // kotlin.Array<User> | List of user object
@@ -150,7 +146,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/xml, application/json
+ - **Accept**: Not defined
 
 <a name="deleteUser"></a>
 # **deleteUser**
@@ -163,8 +159,8 @@ This can only be done by the logged in user.
 ### Example
 ```kotlin
 // Import classes:
-//import io.swagger.client.infrastructure.*
-//import io.swagger.client.models.*
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
 
 val apiInstance = UserApi()
 val username : kotlin.String = username_example // kotlin.String | The name that needs to be deleted
@@ -196,7 +192,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/xml, application/json
+ - **Accept**: Not defined
 
 <a name="getUserByName"></a>
 # **getUserByName**
@@ -204,13 +200,11 @@ No authorization required
 
 Get user by user name
 
-
-
 ### Example
 ```kotlin
 // Import classes:
-//import io.swagger.client.infrastructure.*
-//import io.swagger.client.models.*
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
 
 val apiInstance = UserApi()
 val username : kotlin.String = username_example // kotlin.String | The name that needs to be fetched. Use user1 for testing.
@@ -251,13 +245,11 @@ No authorization required
 
 Logs user into the system
 
-
-
 ### Example
 ```kotlin
 // Import classes:
-//import io.swagger.client.infrastructure.*
-//import io.swagger.client.models.*
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
 
 val apiInstance = UserApi()
 val username : kotlin.String = username_example // kotlin.String | The user name for login
@@ -300,13 +292,11 @@ No authorization required
 
 Logs out current logged in user session
 
-
-
 ### Example
 ```kotlin
 // Import classes:
-//import io.swagger.client.infrastructure.*
-//import io.swagger.client.models.*
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
 
 val apiInstance = UserApi()
 try {
@@ -334,7 +324,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/xml, application/json
+ - **Accept**: Not defined
 
 <a name="updateUser"></a>
 # **updateUser**
@@ -347,8 +337,8 @@ This can only be done by the logged in user.
 ### Example
 ```kotlin
 // Import classes:
-//import io.swagger.client.infrastructure.*
-//import io.swagger.client.models.*
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
 
 val apiInstance = UserApi()
 val username : kotlin.String = username_example // kotlin.String | name that need to be deleted
@@ -382,5 +372,5 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/xml, application/json
+ - **Accept**: Not defined
 

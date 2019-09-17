@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **value** | **kotlin.Double** | some description  | 
-**currency** | [**Currency**](Currency.md) |  | 
+**currency** | **kotlin.String** | some description  | 
 
 
 
