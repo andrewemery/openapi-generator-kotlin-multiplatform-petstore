@@ -1,6 +1,6 @@
 package org.openapitools.client.auth
 
-class ApiKeyAuth(private val location: String, private val paramName: String) : Authentication {
+class ApiKeyAuth(private val location: String, val paramName: String) : Authentication {
     var apiKey: String? = null
     var apiKeyPrefix: String? = null
 

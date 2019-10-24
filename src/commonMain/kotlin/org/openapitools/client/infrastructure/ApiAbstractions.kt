@@ -1,6 +1,6 @@
 package org.openapitools.client.infrastructure
 
-typealias MultiValueMap = MutableMap<String,List<String>>
+typealias MultiValueMap = Map<String,List<String>>
 
 fun collectionDelimiter(collectionFormat: String) = when(collectionFormat) {
     "csv" -> ","

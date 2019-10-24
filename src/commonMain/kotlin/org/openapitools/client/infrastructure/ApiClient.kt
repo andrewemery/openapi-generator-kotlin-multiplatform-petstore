@@ -146,9 +146,10 @@ open class ApiClient(
      * Set the API key value for the first API key authentication.
      *
      * @param apiKey API key
+     * @param paramName The name of the API key parameter, or null or set the first key.
      */
-    fun setApiKey(apiKey: String) {
-        val auth = authentications.values.firstOrNull { it is ApiKeyAuth } as ApiKeyAuth?
+    fun setApiKey(apiKey: String, paramName: String? = null) {
+        val auth = authentications.values.firstOrNull { it is ApiKeyAuth && (paramName == null || paramName == it.paramName)} as ApiKeyAuth?
                 ?: throw Exception("No API key authentication configured")
         auth.apiKey = apiKey
     }
@@ -157,9 +158,10 @@ open class ApiClient(
      * Set the API key prefix for the first API key authentication.
      *
      * @param apiKeyPrefix API key prefix
+     * @param paramName The name of the API key parameter, or null or set the first key.
      */
-    fun setApiKeyPrefix(apiKeyPrefix: String) {
-        val auth = authentications.values.firstOrNull { it is ApiKeyAuth } as ApiKeyAuth?
+    fun setApiKeyPrefix(apiKeyPrefix: String, paramName: String? = null) {
+        val auth = authentications.values.firstOrNull { it is ApiKeyAuth && (paramName == null || paramName == it.paramName) } as ApiKeyAuth?
                 ?: throw Exception("No API key authentication configured")
         auth.apiKeyPrefix = apiKeyPrefix
     }

@@ -1,6 +1,5 @@
 package org.openapitools.client
 
-import util.runTest
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
@@ -10,18 +9,17 @@ import io.ktor.client.request.forms.InputProvider
 import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.content.TextContent
 import io.ktor.http.*
-import org.openapitools.client.apis.PetApi
-import org.openapitools.client.apis.StoreApi
-import org.openapitools.client.apis.UserApi
-import org.openapitools.client.infrastructure.HttpResponse
-import org.openapitools.client.models.ApiResponse
-import org.openapitools.client.models.Order
-import org.openapitools.client.models.Pet
-import org.openapitools.client.models.User
+import io.ktor.util.KtorExperimentalAPI
 import kotlinx.io.charsets.Charsets
 import kotlinx.io.core.buildPacket
+import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
-import org.openapitools.client.apis.FakeApi
+import org.openapitools.client.apis.*
+import org.openapitools.client.infrastructure.Base64ByteArray
+import org.openapitools.client.infrastructure.HttpResponse
+import org.openapitools.client.models.*
+import util.runTest
+import kotlin.collections.List
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -29,13 +27,14 @@ import kotlin.test.assertTrue
 /**
  * Created by Andrew Emery on 2019-05-14.
  */
+@UnstableDefault
+@KtorExperimentalAPI
 @UseExperimental(ExperimentalStdlibApi::class)
-class SwaggerTest {
+class OpenApiTest {
 
-    // TODO: basic auth
-    // TODO: bearer auth
-    // TODO: token auth
     // TODO: integer enum values
+    // TODO: byte requests
+    // TODO: v3 bearer test
 
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
      * json
@@ -273,8 +272,7 @@ class SwaggerTest {
     @Test
     fun `test multi query parameters`(): Unit = runTest {
         val requests = mutableListOf<HttpRequestData>()
-        val json = "success"
-        val engine = mockJsonSuccess(json, requests)
+        val engine = mockSuccess(requests)
 
         // perform the request
         val response: HttpResponse<Unit> = FakeApi("http://example.com", engine).testQueryParameterCollectionFormat(
@@ -282,7 +280,6 @@ class SwaggerTest {
 
         // verify the response
         assertTrue(response.success)
-        val string = response.body()
 
         // verify the request
         assertEquals(1, requests.size)
@@ -291,6 +288,99 @@ class SwaggerTest {
         // note: tsv becomes csv when migrated to OpenApi v3:
         // https://github.com/swagger-api/swagger-parser/blob/master/modules/swagger-parser-v2-converter/src/main/java/io/swagger/v3/parser/converter/SwaggerConverter.java
         assertEquals(Url("http://example.com/fake/test-query-paramters?pipe=pipe1|pipe2&ioutil=tsv1,tsv2&http=ssv1%20ssv2&url=csv1,csv2&context=multi1&context=multi2"), request.url)
+    }
+
+    /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+     * auth
+     * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+
+    @Test
+    fun `test basic auth`(): Unit = runTest {
+        val requests = mutableListOf<HttpRequestData>()
+        val engine = mockSuccess(requests)
+
+        // perform the request
+        val response: HttpResponse<Unit> = FakeApi("http://example.com", engine)
+                .apply { setUsername("test_username") }.apply { setPassword("test_password") }
+                .testEndpointParameters(1.0, 2.0, "pat", Base64ByteArray(byteArrayOf(1.toByte(), 2.toByte())),
+                        null, null, null, null, null, null, null, null, null, null)
+
+        // verify the response
+        assertTrue(response.success)
+
+        // verify the request
+        assertEquals(1, requests.size)
+        val request = requests[0]
+        assertEquals(HttpMethod.Post, request.method)
+        assertEquals(Url("http://example.com/fake"), request.url)
+        assertTrue(request.headers.contains("Authorization", "Basic dGVzdF91c2VybmFtZTp0ZXN0X3Bhc3N3b3Jk"))
+    }
+
+    @Test
+    fun `test api token header`(): Unit = runTest {
+        val requests = mutableListOf<HttpRequestData>()
+        val json = "{\"id\":1,\"category\":{\"id\":1,\"name\":\"string\"},\"name\":\"doggie\",\"photoUrls\":[\"string\"],\"tags\":[{\"id\":0,\"name\":\"string\"}],\"status\":\"available\"}"
+        val engine = mockJsonSuccess(json, requests)
+
+        // perform the request
+        val response: HttpResponse<Pet> = PetApi("http://example.com", engine)
+                .apply { setApiKey("test_key") }
+                .getPetById(1)
+
+        // verify the response
+        assertTrue(response.success)
+
+        // verify the request
+        assertEquals(1, requests.size)
+        val request = requests[0]
+        assertEquals(HttpMethod.Get, request.method)
+        assertEquals(Url("http://example.com/pet/1"), request.url)
+        assertTrue(request.headers.contains("api_key", "test_key"))
+    }
+
+    @Test
+    fun `test api token prefix`(): Unit = runTest {
+        val requests = mutableListOf<HttpRequestData>()
+        val json = "{\"id\":1,\"category\":{\"id\":1,\"name\":\"string\"},\"name\":\"doggie\",\"photoUrls\":[\"string\"],\"tags\":[{\"id\":0,\"name\":\"string\"}],\"status\":\"available\"}"
+        val engine = mockJsonSuccess(json, requests)
+
+        // perform the request
+        val response: HttpResponse<Pet> = PetApi("http://example.com", engine)
+                .apply { setApiKey("test_key") }
+                .apply { setApiKeyPrefix("prefix") }
+                .getPetById(1)
+
+        // verify the response
+        assertTrue(response.success)
+
+        // verify the request
+        assertEquals(1, requests.size)
+        val request = requests[0]
+        assertEquals(HttpMethod.Get, request.method)
+        assertEquals(Url("http://example.com/pet/1"), request.url)
+        assertTrue(request.headers.contains("api_key", "prefix test_key"))
+    }
+
+
+    @Test
+    fun `test api token query`(): Unit = runTest {
+        val requests = mutableListOf<HttpRequestData>()
+        val json = "{\"client\":\"category\"}"
+        val engine = mockJsonSuccess(json, requests)
+
+        // perform the request
+        val response: HttpResponse<Client> = FakeClassnameTags123Api("http://example.com", engine)
+                .apply { setApiKey("test_key", "api_key_query") }
+                .testClassname(Client("client"))
+
+        // verify the response
+        assertTrue(response.success)
+
+        // verify the request
+        assertEquals(1, requests.size)
+        val request = requests[0]
+        assertEquals(HttpMethod.Patch, request.method)
+        assertEquals(Url("http://example.com/fake_classname_test?api_key_query=test_key"), request.url)
     }
 
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
