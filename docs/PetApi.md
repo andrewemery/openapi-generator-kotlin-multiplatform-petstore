@@ -1,6 +1,6 @@
 # PetApi
 
-All URIs are relative to *http://petstore.swagger.io/v2*
+All URIs are relative to *http://petstore.swagger.io:80/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**updatePet**](PetApi.md#updatePet) | **PUT** /pet | Update an existing pet
 [**updatePetWithForm**](PetApi.md#updatePetWithForm) | **POST** /pet/{petId} | Updates a pet in the store with form data
 [**uploadFile**](PetApi.md#uploadFile) | **POST** /pet/{petId}/uploadImage | uploads an image
+[**uploadFileWithRequiredFile**](PetApi.md#uploadFileWithRequiredFile) | **POST** /fake/{petId}/uploadImageWithRequiredFile | uploads an image (required)
 
 
 <a name="addPet"></a>
@@ -387,6 +388,57 @@ Name | Type | Description  | Notes
  **petId** | **kotlin.Long**| ID of pet to update |
  **additionalMetadata** | **kotlin.String**| Additional data to pass to server | [optional]
  **file** | **io.ktor.client.request.forms.InputProvider**| file to upload | [optional]
+
+### Return type
+
+[**ApiResponse**](ApiResponse.md)
+
+### Authorization
+
+
+Configure petstore_auth:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+<a name="uploadFileWithRequiredFile"></a>
+# **uploadFileWithRequiredFile**
+> ApiResponse uploadFileWithRequiredFile(petId, requiredFile, additionalMetadata)
+
+uploads an image (required)
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
+
+val apiInstance = PetApi()
+val petId : kotlin.Long = 789 // kotlin.Long | ID of pet to update
+val requiredFile : io.ktor.client.request.forms.InputProvider = BINARY_DATA_HERE // io.ktor.client.request.forms.InputProvider | file to upload
+val additionalMetadata : kotlin.String = additionalMetadata_example // kotlin.String | Additional data to pass to server
+try {
+    val result : ApiResponse = apiInstance.uploadFileWithRequiredFile(petId, requiredFile, additionalMetadata)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling PetApi#uploadFileWithRequiredFile")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling PetApi#uploadFileWithRequiredFile")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **petId** | **kotlin.Long**| ID of pet to update |
+ **requiredFile** | **io.ktor.client.request.forms.InputProvider**| file to upload |
+ **additionalMetadata** | **kotlin.String**| Additional data to pass to server | [optional]
 
 ### Return type
 
