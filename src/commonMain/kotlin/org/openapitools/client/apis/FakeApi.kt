@@ -12,7 +12,9 @@
 package org.openapitools.client.apis
 
 import org.openapitools.client.models.Client
+import org.openapitools.client.models.EnumTest
 import org.openapitools.client.models.FileSchemaTestClass
+import org.openapitools.client.models.FormatTest
 import org.openapitools.client.models.OuterComposite
 import org.openapitools.client.models.User
 import org.openapitools.client.models.XmlItem
@@ -365,6 +367,38 @@ class FakeApi @UseExperimental(UnstableDefault::class) constructor(
 
 
     /**
+    * test json serialization of enum data
+    * 
+    * @return EnumTest
+    */
+    @Suppress("UNCHECKED_CAST")
+    suspend fun testEnumData() : HttpResponse<EnumTest> {
+
+        val localVariableAuthNames = listOf<String>()
+
+        val localVariableBody = 
+            io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig(
+            RequestMethod.GET,
+            "/fake/enum-test",
+            query = localVariableQuery,
+            headers = localVariableHeaders
+        )
+
+        return request(
+            localVariableConfig,
+            localVariableBody,
+            localVariableAuthNames
+        ).wrap()
+    }
+
+
+    /**
     * To test enum parameters
     * To test enum parameters
     * @param enumHeaderStringArray Header parameter enum test (string array) (optional)
@@ -405,6 +439,38 @@ class FakeApi @UseExperimental(UnstableDefault::class) constructor(
         )
 
         return urlEncodedFormRequest(
+            localVariableConfig,
+            localVariableBody,
+            localVariableAuthNames
+        ).wrap()
+    }
+
+
+    /**
+    * test json serialization of various formats
+    * 
+    * @return FormatTest
+    */
+    @Suppress("UNCHECKED_CAST")
+    suspend fun testFormats() : HttpResponse<FormatTest> {
+
+        val localVariableAuthNames = listOf<String>()
+
+        val localVariableBody = 
+            io.ktor.client.utils.EmptyContent
+
+        val localVariableQuery = mutableMapOf<String, List<String>>()
+
+        val localVariableHeaders = mutableMapOf<String, String>()
+
+        val localVariableConfig = RequestConfig(
+            RequestMethod.GET,
+            "/fake/format-test",
+            query = localVariableQuery,
+            headers = localVariableHeaders
+        )
+
+        return request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames

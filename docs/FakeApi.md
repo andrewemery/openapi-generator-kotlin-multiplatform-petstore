@@ -13,7 +13,9 @@ Method | HTTP request | Description
 [**testBodyWithQueryParams**](FakeApi.md#testBodyWithQueryParams) | **PUT** /fake/body-with-query-params | 
 [**testClientModel**](FakeApi.md#testClientModel) | **PATCH** /fake | To test \&quot;client\&quot; model
 [**testEndpointParameters**](FakeApi.md#testEndpointParameters) | **POST** /fake | Fake endpoint for testing various parameters 假端點 偽のエンドポイント 가짜 엔드 포인트 
+[**testEnumData**](FakeApi.md#testEnumData) | **GET** /fake/enum-test | test json serialization of enum data
 [**testEnumParameters**](FakeApi.md#testEnumParameters) | **GET** /fake | To test enum parameters
+[**testFormats**](FakeApi.md#testFormats) | **GET** /fake/format-test | test json serialization of various formats
 [**testGroupParameters**](FakeApi.md#testGroupParameters) | **DELETE** /fake | Fake endpoint to test group parameters (optional)
 [**testInlineAdditionalProperties**](FakeApi.md#testInlineAdditionalProperties) | **POST** /fake/inline-additionalProperties | test inline additionalProperties
 [**testJsonFormData**](FakeApi.md#testJsonFormData) | **GET** /fake/jsonFormData | test json serialization of form data
@@ -468,6 +470,47 @@ Configure http_basic_test:
  - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: Not defined
 
+<a name="testEnumData"></a>
+# **testEnumData**
+> EnumTest testEnumData()
+
+test json serialization of enum data
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
+
+val apiInstance = FakeApi()
+try {
+    val result : EnumTest = apiInstance.testEnumData()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling FakeApi#testEnumData")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling FakeApi#testEnumData")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**EnumTest**](EnumTest.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="testEnumParameters"></a>
 # **testEnumParameters**
 > testEnumParameters(enumHeaderStringArray, enumHeaderString, enumQueryStringArray, enumQueryString, enumQueryInteger, enumQueryDouble, enumFormStringArray, enumFormString)
@@ -527,6 +570,47 @@ No authorization required
 
  - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: Not defined
+
+<a name="testFormats"></a>
+# **testFormats**
+> FormatTest testFormats()
+
+test json serialization of various formats
+
+### Example
+```kotlin
+// Import classes:
+//import org.openapitools.client.infrastructure.*
+//import org.openapitools.client.models.*
+
+val apiInstance = FakeApi()
+try {
+    val result : FormatTest = apiInstance.testFormats()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling FakeApi#testFormats")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling FakeApi#testFormats")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**FormatTest**](FormatTest.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
 
 <a name="testGroupParameters"></a>
 # **testGroupParameters**

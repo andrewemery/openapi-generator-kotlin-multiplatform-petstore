@@ -17,6 +17,7 @@ import kotlinx.serialization.json.Json
 import org.openapitools.client.apis.*
 import org.openapitools.client.infrastructure.Base64ByteArray
 import org.openapitools.client.infrastructure.HttpResponse
+import org.openapitools.client.infrastructure.OctetByteArray
 import org.openapitools.client.models.*
 import util.runTest
 import kotlin.collections.List
@@ -32,9 +33,7 @@ import kotlin.test.assertTrue
 @UseExperimental(ExperimentalStdlibApi::class)
 class OpenApiTest {
 
-    // TODO: integer enum values
-    // TODO: byte requests
-    // TODO: v3 bearer test
+    // TODO: bearer test (openapi v3 only)
 
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
      * json
@@ -148,6 +147,40 @@ class OpenApiTest {
         assertEquals(HttpMethod.Get, request.method)
         assertEquals(Url("http://example.com/user/login?username=username&password=pass"), request.url)
     }
+
+    @Test
+    fun `test json integer enum values response`(): Unit = runTest {
+        val requests = mutableListOf<HttpRequestData>()
+        val json = "{\"enum_string_required\":\"UPPER\", \"enum_integer\":1, \"enum_number\":1.1}"
+        val engine = mockJsonSuccess(json, requests)
+
+        // perform the request
+        val enums: HttpResponse<EnumTest> = FakeApi("http://example.com", engine).testEnumData()
+
+        // verify the response
+        assertTrue(enums.success)
+        val enum = enums.body()
+        assertEquals(EnumTest.EnumStringRequired.uPPER, enum.enumStringRequired)
+        assertEquals(EnumTest.EnumInteger._1, enum.enumInteger)
+        assertEquals(EnumTest.EnumNumber._1period1, enum.enumNumber)
+    }
+
+    @Test
+    fun `test json byte response`(): Unit = runTest {
+        val requests = mutableListOf<HttpRequestData>()
+        val json = "{\"number\":1.2, \"byte\":\"IT8=\", \"date\":\"\", \"password\":\"p\", \"binary\":\"213F\"}"
+        val engine = mockJsonSuccess(json, requests)
+
+        // perform the request
+        val formats: HttpResponse<FormatTest> = FakeApi("http://example.com", engine).testFormats()
+
+        // verify the response
+        assertTrue(formats.success)
+        val format = formats.body()
+        assertEquals(Base64ByteArray(byteArrayOf(0x21.toByte(), 0x3f.toByte())), format.byte)
+        assertEquals(OctetByteArray(byteArrayOf(0x21.toByte(), 0x3f.toByte())), format.binary)
+    }
+
 
     /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
      * url encoded form

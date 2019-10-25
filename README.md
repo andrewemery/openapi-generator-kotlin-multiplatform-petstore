@@ -48,7 +48,9 @@ Class | Method | HTTP request | Description
 *FakeApi* | [**testBodyWithQueryParams**](docs/FakeApi.md#testbodywithqueryparams) | **PUT** /fake/body-with-query-params | 
 *FakeApi* | [**testClientModel**](docs/FakeApi.md#testclientmodel) | **PATCH** /fake | To test \"client\" model
 *FakeApi* | [**testEndpointParameters**](docs/FakeApi.md#testendpointparameters) | **POST** /fake | Fake endpoint for testing various parameters 假端點 偽のエンドポイント 가짜 엔드 포인트 
+*FakeApi* | [**testEnumData**](docs/FakeApi.md#testenumdata) | **GET** /fake/enum-test | test json serialization of enum data
 *FakeApi* | [**testEnumParameters**](docs/FakeApi.md#testenumparameters) | **GET** /fake | To test enum parameters
+*FakeApi* | [**testFormats**](docs/FakeApi.md#testformats) | **GET** /fake/format-test | test json serialization of various formats
 *FakeApi* | [**testGroupParameters**](docs/FakeApi.md#testgroupparameters) | **DELETE** /fake | Fake endpoint to test group parameters (optional)
 *FakeApi* | [**testInlineAdditionalProperties**](docs/FakeApi.md#testinlineadditionalproperties) | **POST** /fake/inline-additionalProperties | test inline additionalProperties
 *FakeApi* | [**testJsonFormData**](docs/FakeApi.md#testjsonformdata) | **GET** /fake/jsonFormData | test json serialization of form data
